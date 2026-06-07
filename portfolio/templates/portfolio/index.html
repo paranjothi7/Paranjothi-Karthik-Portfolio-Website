@@ -1,0 +1,254 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ personal_info.name }}</title>
+    <link rel="stylesheet" href="{% static 'portfolio/css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header-area">
+        <div class="container">
+            <div class="header">
+                <a href="#home" class="logo">
+                    <img src="{% static 'portfolio/files/Karthik Signature.png' %}" alt="" class="signature">
+                    <i class="fa fa-bolt"></i>
+                </a>
+                <ul class="navbar">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#certifications">Certifications</a></li>
+                    <li><a href="#contact">Contact Me</a></li>
+                </ul>
+                <div class="menu_icon"><i class="fa fa-bars"></i></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="FirstElement" id="home">
+        <div class="profile-photo">
+            {% if personal_info.profile_photo %}
+                <img src="{{ personal_info.profile_photo.url }}" alt="profile">
+            {% else %}
+                <img src="{% static 'portfolio/files/profile 1.jpg' %}" alt="profile">
+            {% endif %}
+        </div>
+        <div class="profile-text">
+            <h5>Hi I'm</h5>
+            <h1>{{ personal_info.name }}</h1>
+            <p>Welcome to my portfolio website! I'm a passionate and aspiring Data Analyst and Software Engineer with a strong desire to create innovative solutions and push the boundaries of technology. With a deep love for coding and problem-solving, I am constantly seeking opportunities to learn and grow in this ever-evolving field</p>
+            <div class="btn-group">
+                <a href="#" class="btn active">Download CV</a>
+                <a href="mailto:{{ personal_info.email }}" class="btn">Contact</a>
+            </div>
+            <div class="social">
+                {% for link in social_links %}
+                    <a href="{{ link.url }}">
+                        {% if link.icon %}
+                            <img src="{{ link.icon.url }}"
+                                alt="{{ link.platform }}"
+                                width="40"
+                                height="40">
+                        {% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <section class="about-area" id="about">
+        <div class="container">
+            <div class="about">
+                <div class="about-content">
+                    <h4>About Me</h4>
+                    <ul>
+                        <li>I am currently pursuing my Master's in Computer Science and Engineering. I have built a solid foundation in Data Analysis and Software Development, particularly in areas such as Python, C, Java, R, and SQL</li>
+                        <li>My expertise in these areas allows me to approach projects with confidence and deliver high-quality results. I have a strong belief in the value of continuous learning and staying adaptable in the ever-evolving world of Information Technology.</li>
+                        <li>I actively seek out opportunities to expand my knowledge and skills, embracing new technologies and approaches. Feel free to explore my work and get in touch if you have any questions or opportunities to collaborate.</li>
+                    </ul>
+                </div>
+                <div class="about-skills">
+                    <ul>
+                        <li>Name: {{ personal_info.name }}</li>
+                        <li>Age: {{ personal_info.age }}</li>
+                        <li>From: {{ personal_info.location }}</li>
+                        <li>Email: {{ personal_info.email }}</li>
+                        <li>Availability: {{ personal_info.availability }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="skills-section" id="skills">
+        <div class="container">
+            <h2 class="section-title">My Skills</h2>
+            <div class="skills-container">
+                {% for skill in skills %}
+                    <div class="skill" data-skill="{{ skill.name }}" style="--progress: {{ skill.proficiency }}%;"></div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="education-content" id="education">
+        <div class="container">
+            <div class="row">
+                <div class="education">
+                    <h3 class="title">Education</h3>
+                    <div class="timeline">
+                        {% for education in education_list %}
+                        <div class="timeline-item">
+                            <h3>{{ education.degree }}</h3>
+                            <p>{{ education.institution }}</p>
+                            <p class="score">Score: {{ education.score }}</p>
+                            <span>{{ education.start_year }} - {{ education.end_year }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="experience">
+                    <h3 class="title">Experience</h3>
+                    <div class="timeline">
+                        {% for experience in experiences %}
+                        <div class="timeline-item">
+                            <div class="circle-dot"></div>
+                            <h3 class="timeline-title">{{ experience.title }}</h3>
+                            <h4 class="timeline-title">{{ experience.company }}</h4>
+                            <h4 class="timeline-title">{{ experience.duration }}</h4>
+                            <p class="timeline-text">{{ experience.description }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="project-content" id="projects">
+        <div class="container">
+            <h4 class="title">My Projects</h4>
+            <div class="projects">
+                {% for project in projects %}
+                <div class="project">
+                    {% if project.icon %}
+                    <img src="{{ project.icon.url }}"
+                        alt="{{ project.title }}"
+                        class="project-icon">
+                    {% endif %}
+                    <h4>{{ project.title }}</h4>
+                    <p>{{ project.description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="certifications-section" id="certifications">
+        <div class="container">
+            <h2 class="section-title">Certifications</h2>
+            <div class="certifications-container">
+                {% for cert in certifications %}
+                <div class="certification-card">
+                    <img src="{{ cert.image.url }}" alt="{{ cert.title }}">
+                    <h3>{{ cert.title }}</h3>
+                    <p>{{ cert.issuer }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+    <div class="container">
+
+        <h2 class="section-title">Contact Me</h2>
+
+        <div class="contact-container">
+
+            <!-- Left -->
+            <div class="contact-info">
+                <div class="contact-list">
+
+                    <div class="contact-item">
+                        <i class="fa fa-phone"></i>
+                        <span>+91 9629921185</span>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fa fa-envelope"></i>
+                        <span>paranjothikarthik2003@gmail.com</span>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fa fa-location-dot"></i>
+                        <span>No.25, Renuga Nagar, Pollikalipalayam</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Right -->
+            <div class="contact-form-card">
+                <form id="contactForm">
+
+                    {% csrf_token %}
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Your Name"
+                        required>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Your Email"
+                        required>
+
+                    <textarea
+                        id="message"
+                        name="message"
+                        rows="6"
+                        placeholder="Write your message..."
+                        required></textarea>
+
+                    <button type="submit">
+                        Send Message
+                    </button>
+
+                </form>
+
+<div id="contactResponse"></div>
+            </div>
+
+        </div>
+    </div>
+    </section>
+
+    <footer class="footer-area">
+    <div class="container">
+        <p class="footer-message">
+            Thanks for visiting my portfolio.
+        </p>
+
+        <p class="footer-copyright">
+            © {% now "Y" %} {{ personal_info.name }}. All Rights Reserved.
+        </p>
+
+        <button id="scroll-top" aria-label="Scroll to top">
+            <i class="fa fa-chevron-up"></i>
+        </button>
+    </div>
+    </footer>
+
+    <script src="{% static 'portfolio/js/script.js' %}"></script>
+</body>
+</html>
