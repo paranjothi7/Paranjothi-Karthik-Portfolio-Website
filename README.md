@@ -216,7 +216,7 @@ http://127.0.0.1:8000/admin/
 
 ### Paranjothi Karthik M
 
-Final Year Computer Science and Engineering Student
+Master's in Computer Science and Engineering 
 
 Aspiring Data Scientist | Python Developer | Machine Learning Enthusiast
 
